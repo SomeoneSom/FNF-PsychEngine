@@ -2028,6 +2028,7 @@ class PlayState extends MusicBeatState
 	}
 
 	//returns id of new note
+	//these are public so i can use them in FunkinLua
 	public function generateNewStrumNote(direction:Int, player:Int, alpha:Float):Int {
 		//damn this copy and paste hitting different ngl
 		// FlxG.log.add(i);
@@ -2061,6 +2062,16 @@ class PlayState extends MusicBeatState
 		babyArrow.postAddedToGroup();
 
 		return ret;
+	}
+
+	public function removeStrumNote(id:Int):Void {
+		var toRemove:StrumNote = strumLineNotes.members[id];
+
+		//this wont crash since remove just returns -1 if the object doesnt exist in the group
+		playerStrums.remove(toRemove);
+		opponentStrums.remove(toRemove);
+
+		strumLineNotes.remove(toRemove).destroy();
 	}
 
 	override function openSubState(SubState:FlxSubState)
