@@ -568,22 +568,7 @@ class FunkinLua {
 				}));
 			}
 		});
-		//how did you guys forget scale the last time
-		Lua_helper.add_callback(lua, "noteTweenScale", function(tag:String, note:Int, xValue:Dynamic, yValue:Dynamic, duration:Float, ease:String) {
-			cancelTween(tag);
-			if (note < 0) note = 0;
-			var testicle:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
-
-			if (testicle != null) {
-				PlayState.instance.modchartTweens.set(tag, FlxTween.tween(testicle.scale, {x: xValue, y:yValue}, duration, {ease: getFlxEaseByString(ease),
-					onComplete: function(twn:FlxTween) {
-						PlayState.instance.callOnLuas('onTweenCompleted', [tag]);
-						PlayState.instance.modchartTweens.remove(tag);
-					}
-				}));
-			}
-		});
-		//alpha too
+		//you guys forgot alpha lmao
 		Lua_helper.add_callback(lua, "noteTweenAlpha", function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String) {
 			cancelTween(tag);
 			if (note < 0) note = 0;
