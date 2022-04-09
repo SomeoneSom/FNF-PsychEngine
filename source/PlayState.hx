@@ -2059,6 +2059,7 @@ class PlayState extends MusicBeatState
 			ret = strumLineNotes.length;
 		}
 		strumLineNotes.add(babyArrow);
+		//add(babyArrow);
 		babyArrow.postAddedToGroup();
 
 		return ret;
@@ -3673,11 +3674,12 @@ class PlayState extends MusicBeatState
 		var key:Int = getKeyFromEvent(eventKey);
 		if(!cpuControlled && !paused && key > -1)
 		{
-			var spr:StrumNote = playerStrums.members[key];
-			if(spr != null)
-			{
-				spr.playAnim('static');
-				spr.resetAnim = 0;
+			for (i in playerStrums.members) {
+				if(i != null)
+				{
+					i.playAnim('static');
+					i.resetAnim = 0;
+				}
 			}
 			callOnLuas('onKeyRelease', [key]);
 		}

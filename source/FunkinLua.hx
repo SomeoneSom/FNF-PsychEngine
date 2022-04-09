@@ -600,119 +600,121 @@ class FunkinLua {
 		});
 
 		//strumline shit that isnt tweens, seriously, why did these not exist before?
-		Lua_helper.add_callback(lua, "getNoteX", function(id:Int) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
-				return null;
+		Lua_helper.add_callback(lua, "getNoteX", function(note:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
+				return -9999.0;
 			}
 			return ligma.x;
 		});
 
-		Lua_helper.add_callback(lua, "getNoteY", function(id:Int) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
-				return null;
+		Lua_helper.add_callback(lua, "getNoteY", function(note:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
+				return -9999.0;
 			}
 			return ligma.y;
 		});
 
-		Lua_helper.add_callback(lua, "getNoteAngle", function(id:Int) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
-				return null;
+		Lua_helper.add_callback(lua, "getNoteAngle", function(note:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
+				return -9999.0;
 			}
 			return ligma.angle;
 		});
 
-		Lua_helper.add_callback(lua, "getNoteDirection", function(id:Int) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
-				return null;
+		Lua_helper.add_callback(lua, "getNoteDirection", function(note:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
+				return -9999.0;
 			}
 			return ligma.direction;
 		});
 
-		Lua_helper.add_callback(lua, "getNoteScaleX", function(id:Int) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
-				return null;
+		Lua_helper.add_callback(lua, "getNoteScaleX", function(note:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
+				return -9999.0;
 			}
 			return ligma.scale.x;
 		});
 
-		Lua_helper.add_callback(lua, "getNoteScaleY", function(id:Int) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
-				return null;
+		Lua_helper.add_callback(lua, "getNoteScaleY", function(note:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
+				return -9999.0;
 			}
 			return ligma.scale.y;
 		});
-		Lua_helper.add_callback(lua, "getNoteAlpha", function(id:Int) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
-				return null;
+		Lua_helper.add_callback(lua, "getNoteAlpha", function(note:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
+				return -9999.0;
 			}
 			return ligma.alpha;
 		});
 
-		Lua_helper.add_callback(lua, "setNoteX", function(id:Int, value:Dynamic) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
+		Lua_helper.add_callback(lua, "setNoteX", function(note:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
 				return -1;
 			}
+			trace(ligma.x);
+			trace(ligma.y);
 			ligma.x = value;
 			return 0;
 		});
 
-		Lua_helper.add_callback(lua, "setNoteY", function(id:Int, value:Dynamic) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
+		Lua_helper.add_callback(lua, "setNoteY", function(note:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
 				return -1;
 			}
 			ligma.y = value;
 			return 0;
 		});
 
-		Lua_helper.add_callback(lua, "setNoteAngle", function(id:Int, value:Dynamic) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
+		Lua_helper.add_callback(lua, "setNoteAngle", function(note:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
 				return -1;
 			}
 			ligma.angle = value;
 			return 0;
 		});
 
-		Lua_helper.add_callback(lua, "setNoteDirection", function(id:Int, value:Dynamic) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
+		Lua_helper.add_callback(lua, "setNoteDirection", function(note:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
 				return -1;
 			}
 			ligma.direction = value;
 			return 0;
 		});
 
-		Lua_helper.add_callback(lua, "setNoteScaleX", function(id:Int, value:Dynamic) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != -1) {
+		Lua_helper.add_callback(lua, "setNoteScaleX", function(note:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
 				return -1;
 			}
 			ligma.scale.x = value;
 			return 0;
 		});
 
-		Lua_helper.add_callback(lua, "setNoteScaleY", function(id:Int, value:Dynamic) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
-				return null;
+		Lua_helper.add_callback(lua, "setNoteScaleY", function(note:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
+				return -1;
 			}
 			ligma.scale.y = value;
 			return 0;
 		});
 
-		Lua_helper.add_callback(lua, "setNoteAlpha", function(id:Int, value:Dynamic) {
-			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
-			if (ligma != null) {
-				return null;
+		Lua_helper.add_callback(lua, "setNoteAlpha", function(note:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+			if (ligma == null) {
+				return -1;
 			}
 			ligma.alpha = value;
 			return 0;
@@ -724,8 +726,8 @@ class FunkinLua {
 			return PlayState.instance.generateNewStrumNote(direction, player, alpha);
 		});
 
-		Lua_helper.add_callback(lua, "removeNote", function(id:Int) {
-			PlayState.instance.removeStrumNote(id);
+		Lua_helper.add_callback(lua, "removeNote", function(note:Int) {
+			PlayState.instance.removeStrumNote(note);
 		});
 
 		Lua_helper.add_callback(lua, "mouseClicked", function(button:String) {
