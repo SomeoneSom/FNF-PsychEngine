@@ -10,7 +10,7 @@ class StrumNote extends FlxSprite
 {
 	private var colorSwap:ColorSwap;
 	public var resetAnim:Float = 0;
-	private var noteData:Int = 0;
+	public var noteData:Int = 0; //why was this private? its public now so i dont have to do reflection bc it sucks
 	public var direction:Float = 90;//plan on doing scroll directions soon -bb
 	public var downScroll:Bool = false;//plan on doing scroll directions soon -bb
 	public var sustainReduce:Bool = true;

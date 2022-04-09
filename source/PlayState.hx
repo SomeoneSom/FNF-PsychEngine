@@ -2027,6 +2027,42 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	//returns id of new note
+	public function generateNewStrumNote(direction:Int, player:Int, alpha:Float):Int {
+		//damn this copy and paste hitting different ngl
+		// FlxG.log.add(i);
+		var targetAlpha:Float = alpha;
+
+		var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, direction, player);
+		babyArrow.downScroll = ClientPrefs.downScroll;
+		babyArrow.alpha = targetAlpha;
+
+		if (player == 1)
+		{
+			playerStrums.add(babyArrow);
+		}
+		else
+		{
+			if(ClientPrefs.middleScroll)
+			{
+				babyArrow.x += 310;
+				if (direction > 1) { //Up and Right
+					babyArrow.x += FlxG.width / 2 + 25;
+				}
+			}
+			opponentStrums.add(babyArrow);
+		}
+
+		var ret:Int = strumLineNotes.getFirstNull();
+		if (ret == -1) {
+			ret = strumLineNotes.length;
+		}
+		strumLineNotes.add(babyArrow);
+		babyArrow.postAddedToGroup();
+
+		return ret;
+	}
+
 	override function openSubState(SubState:FlxSubState)
 	{
 		if (paused)
@@ -3608,11 +3644,12 @@ class PlayState extends MusicBeatState
 				Conductor.songPosition = lastTime;
 			}
 
-			var spr:StrumNote = playerStrums.members[key];
-			if(spr != null && spr.animation.curAnim.name != 'confirm')
-			{
-				spr.playAnim('pressed');
-				spr.resetAnim = 0;
+			//yes this is slightly slower but it should prob only lag if you have an insane amount of notes
+			for (i in playerStrums.members) {
+				if (i.noteData == key && i != null && i.animation.curAnim.name != 'confirm') {
+					i.playAnim('pressed');
+					i.resetAnim = 0;
+				}
 			}
 			callOnLuas('onKeyPress', [key]);
 		}
