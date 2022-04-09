@@ -56,7 +56,7 @@ class FunkinLua {
 
 	public var accessedProps:Map<String, Dynamic> = null;
 	public function new(script:String) {
-		#if LUA_ALLOWED
+		//#if LUA_ALLOWED
 		lua = LuaL.newstate();
 		LuaL.openlibs(lua);
 		Lua.init_callbacks(lua);
@@ -568,6 +568,166 @@ class FunkinLua {
 				}));
 			}
 		});
+		//how did you guys forget scale the last time
+		Lua_helper.add_callback(lua, "noteTweenScale", function(tag:String, note:Int, xValue:Dynamic, yValue:Dynamic, duration:Float, ease:String) {
+			cancelTween(tag);
+			if (note < 0) note = 0;
+			var testicle:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+
+			if (testicle != null) {
+				PlayState.instance.modchartTweens.set(tag, FlxTween.tween(testicle.scale, {x: xValue, y:yValue}, duration, {ease: getFlxEaseByString(ease),
+					onComplete: function(twn:FlxTween) {
+						PlayState.instance.callOnLuas('onTweenCompleted', [tag]);
+						PlayState.instance.modchartTweens.remove(tag);
+					}
+				}));
+			}
+		});
+		//alpha too
+		Lua_helper.add_callback(lua, "noteTweenAlpha", function(tag:String, note:Int, value:Dynamic, duration:Float, ease:String) {
+			cancelTween(tag);
+			if (note < 0) note = 0;
+			var testicle:StrumNote = PlayState.instance.strumLineNotes.members[note % PlayState.instance.strumLineNotes.length];
+
+			if (testicle != null) {
+				PlayState.instance.modchartTweens.set(tag, FlxTween.tween(testicle, {alpha: value}, duration, {ease: getFlxEaseByString(ease),
+					onComplete: function(twn:FlxTween) {
+						PlayState.instance.callOnLuas('onTweenCompleted', [tag]);
+						PlayState.instance.modchartTweens.remove(tag);
+					}
+				}));
+			}
+		});
+
+		//strumline shit that isnt tweens, seriously, why did these not exist before?
+		Lua_helper.add_callback(lua, "getNoteX", function(id:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return null;
+			}
+			return ligma.x;
+		});
+
+		Lua_helper.add_callback(lua, "getNoteY", function(id:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return null;
+			}
+			return ligma.y;
+		});
+
+		Lua_helper.add_callback(lua, "getNoteAngle", function(id:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return null;
+			}
+			return ligma.angle;
+		});
+
+		Lua_helper.add_callback(lua, "getNoteDirection", function(id:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return null;
+			}
+			return ligma.direction;
+		});
+
+		Lua_helper.add_callback(lua, "getNoteScaleX", function(id:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return null;
+			}
+			return ligma.scale.x;
+		});
+
+		Lua_helper.add_callback(lua, "getNoteScaleY", function(id:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return null;
+			}
+			return ligma.scale.y;
+		});
+		Lua_helper.add_callback(lua, "getNoteAlpha", function(id:Int) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return null;
+			}
+			return ligma.alpha;
+		});
+
+		Lua_helper.add_callback(lua, "setNoteX", function(id:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return -1;
+			}
+			ligma.x = value;
+			return 0;
+		});
+
+		Lua_helper.add_callback(lua, "setNoteY", function(id:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return -1;
+			}
+			ligma.y = value;
+			return 0;
+		});
+
+		Lua_helper.add_callback(lua, "setNoteAngle", function(id:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return -1;
+			}
+			ligma.angle = value;
+			return 0;
+		});
+
+		Lua_helper.add_callback(lua, "setNoteDirection", function(id:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return -1;
+			}
+			ligma.direction = value;
+			return 0;
+		});
+
+		Lua_helper.add_callback(lua, "setNoteScaleX", function(id:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != -1) {
+				return -1;
+			}
+			ligma.scale.x = value;
+			return 0;
+		});
+
+		Lua_helper.add_callback(lua, "setNoteScaleY", function(id:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return null;
+			}
+			ligma.scale.y = value;
+			return 0;
+		});
+
+		Lua_helper.add_callback(lua, "setNoteAlpha", function(id:Int, value:Dynamic) {
+			var ligma:StrumNote = PlayState.instance.strumLineNotes.members[note % Playstate.instance.strumLineNotes.length];
+			if (ligma != null) {
+				return null;
+			}
+			ligma.alpha = value;
+			return 0;
+		});
+
+
+		//strumline adding and removing
+		Lua_helper.add_callback(lua, "addNote", function(direction:Int, player:Int, alpha:Int) {
+			return PlayState.instance.generateNewStrumNote(direction, player, alpha);
+		});
+
+		Lua_helper.add_callback(lua, "removeNote", function(id:Int) {
+			PlayState.instance.removeStrumNote(id);
+		});
+
 		Lua_helper.add_callback(lua, "mouseClicked", function(button:String) {
 			var boobs = FlxG.mouse.justPressed;
 			switch(button){
@@ -1728,7 +1888,7 @@ class FunkinLua {
 		});
 		
 		call('onCreate', []);
-		#end
+		//#end
 	}
 
 	inline static function getTextObject(name:String):FlxText
